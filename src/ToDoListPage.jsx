@@ -43,7 +43,7 @@ function ToDoListPage() {
   return (
     <div className="max-w-lg  py-5 px-8 m-auto h-screen rounded-xl bg-black text-white">
       <h1 className="text-3xl text-center pb-4 text-white ">HOME TODO's</h1>
-      <Link to="/" className="flex justify-end py-2">Go back</Link>
+      <Link to="/" className="flex justify-end py-2 hover:underline">Go back</Link>
       <div className="bg-gray-400 rounded-xl">
         <Input value={todo} onTodoChange={onTodoChange} />
         <Button handleAddTodo={handleAddTodo} />
