@@ -1,6 +1,6 @@
 import React from "react";
 
-function Input({ value, onTodoChange }) {
+function Input({ value, onTodoChange, className }) {
   return (
     <div className="bg-gray-400 rounded-xl">
       <input

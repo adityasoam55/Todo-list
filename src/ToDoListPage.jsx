@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Input from "./Input";
 import ToDoItem from "./ToDoItem";
 import Button from "./Button";
 import { Link } from "react-router-dom";
 
-function ToDoListPage() {
+function ToDoListPage(  ) {
   const [todo, setTodo] = useState("");
   const [addTodo, setAddTodo] = useState([]);
-  const [dateTime, setDateTime] = useState(null);
+
+  useEffect(() => {
+    const storedTodos = JSON.parse(localStorage.getItem("todos")) || [];
+    setAddTodo(storedTodos);
+  }, []);
 
   function handleAddTodo() {
     const now = new Date();
@@ -18,15 +22,13 @@ function ToDoListPage() {
       minute: "2-digit",
     };
     const formattedDate = now.toLocaleDateString("en-US", options);
-    const time = now.toLocaleTimeString("en-US", {
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-    });
-    setDateTime(`${formattedDate}`);
+    const dateTime = `${formattedDate}`;
 
-    if (todo != "") {
-      setAddTodo([...addTodo, todo]);
+    if (todo !== "") {
+      const newTodo = { text: todo, timestamp: dateTime };
+      const newTodoList = [...addTodo, newTodo];
+      setAddTodo(newTodoList);
+      localStorage.setItem("todos", JSON.stringify(newTodoList));
       setTodo("");
     } else {
       alert("Please enter a todo");
@@ -39,20 +41,20 @@ function ToDoListPage() {
 
   function updatedAddTodo(newTodoList) {
     setAddTodo(newTodoList);
+    localStorage.setItem("todos", JSON.stringify(newTodoList));
   }
+
   return (
-    <div className="max-w-lg  py-5 px-8 m-auto h-screen rounded-xl bg-black text-white">
-      <h1 className="text-3xl text-center pb-4 text-white ">HOME TODO's</h1>
-      <Link to="/" className="flex justify-end py-2 hover:underline">Go back</Link>
+    <div className="max-w-lg py-5 px-8 m-auto h-screen rounded-xl bg-black text-white overflow-auto">
+      <h1 className="text-3xl text-center pb-4 text-white font-bold ">TODO's LIST</h1>
+      <Link to="/" className="flex justify-end py-2 hover:underline">
+        Go back
+      </Link>
       <div className="bg-gray-400 rounded-xl">
         <Input value={todo} onTodoChange={onTodoChange} />
         <Button handleAddTodo={handleAddTodo} />
       </div>
-      <ToDoItem
-        addTodo={addTodo}
-        updatedTodoList={updatedAddTodo}
-        dateTime={dateTime}
-      />
+      <ToDoItem addTodo={addTodo} updatedTodoList={updatedAddTodo} />
     </div>
   );
 }

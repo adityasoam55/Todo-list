@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MainPage from "./MainPage";
 import ToDoListPage from "./ToDoListPage";
-// import Test from "./Test";
 
 export default function App() {
   return (
@@ -9,7 +8,6 @@ export default function App() {
           <Routes>
             <Route path="/" element={<MainPage />} />
             <Route path="/todolistpage" element={<ToDoListPage />} />
-            {/* <Route path="/test" element={<Test />} /> */}
           </Routes>
     </div>
   );
