@@ -78,8 +78,8 @@ function ToDoItem({ addTodo, updatedTodoList }) {
             </div>
           </div>
           {item.timestamp && (
-            <div>
-              <span className="text-xs text-black font-medium">ADDED</span>
+            <div className="flex gap-2">
+              <span className="text-xs text-black font-medium">ADDED -</span>
               <p className="text-xs text-black font-medium">{item.timestamp}</p>
             </div>
           )}
